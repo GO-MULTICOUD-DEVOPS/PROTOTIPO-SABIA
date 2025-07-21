@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma SÁBIA</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter (para UI) e Cormorant Garamond (para o logo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Estilos customizados */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4; /* Um branco-pergaminho quente */
+        }
+        .font-logo {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* Scrollbar customizada para melhor estética */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0; /* slate-200 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2dd4bf; /* teal-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #14b8a6; /* teal-500 */
+        }
+        .nav-item.active {
+            background-color: #0d9488; /* teal-600 */
+            color: white;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="text-gray-800 flex">
+
+    <!-- Sidebar de Navegação -->
+    <aside class="w-64 bg-slate-800 p-6 flex flex-col justify-between h-screen sticky top-0">
+        <div>
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 mb-10">
+                <img src="./assets/logo-sabia.png" alt="Logo SÁBIA" class="h-20 w-20" onerror="this.onerror=null;this.src='https://placehold.co/40x40/14b8a6/ffffff?text=S';">
+                <span class="text-3xl font-bold text-white font-logo">SÁBIA</span>
+            </div>
+
+            <!-- Menu de Navegação -->
+            <nav class="space-y-3">
+                <a href="#" onclick="showPage('dashboard')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200 active">
+                    <i class="fas fa-home w-6 text-center"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" onclick="showPage('turmas')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
+                    <i class="fas fa-users w-6 text-center"></i>
+                    <span>Minhas Turmas</span>
+                </a>
+                <a href="#" onclick="showPage('atividades')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
+                    <i class="fas fa-clipboard-list w-6 text-center"></i>
+                    <span>Minhas Atividades</span>
+                </a>
+                <a href="#" onclick="showPage('anjo')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
+                    <img src="./assets/logo-anjo.png" class="w-12 h-10 opacity-80" alt="Ícone ANJO" onerror="this.onerror=null;this.src='https://placehold.co/24x24/ffffff/000000?text=A';">
+                    <span>Painel ANJO</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Perfil do Usuário -->
+        <div class="border-t border-slate-700 pt-6">
+            <div class="flex items-center space-x-4">
+                <img class="h-12 w-12 rounded-full object-cover" src="./assets/professor.png" alt="Professor" onerror="this.onerror=null;this.src='https://placehold.co/48x48/ffffff/333333?text=P';">
+                <div>
+                    <p class="font-semibold text-white">Prof. Carlos</p>
+                    <a href="#" class="text-sm text-teal-400 hover:underline">Sair</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 p-8 overflow-y-auto">
+
+        <!-- Página: Dashboard -->
+        <div id="dashboard" class="page active">
+            <h1 class="text-4xl font-bold text-slate-800 mb-2">Bem-vindo, Prof. Carlos!</h1>
+            <p class="text-slate-500 mb-8">Seu centro de controle para uma educação mais inclusiva.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Ação Principal: Criar Atividade -->
+                <div class="md:col-span-2 bg-teal-500 p-8 rounded-2xl flex flex-col justify-center items-start text-white shadow-lg">
+                    <h2 class="text-3xl font-bold mb-2">Transforme seu plano de aula.</h2>
+                    <p class="text-teal-100 mb-6 max-w-md">Cole seu conteúdo e deixe a nossa IA criar atividades personalizadas em segundos.</p>
+                    <button class="bg-white text-teal-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-transform duration-200 hover:scale-105">
+                        <i class="fas fa-magic mr-2"></i> Criar Atividade Adaptada
+                    </button>
+                </div>
+                <!-- Cartões de Estatísticas -->
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-2xl flex items-center space-x-4 border border-slate-200">
+                        <i class="fas fa-users text-3xl text-teal-500"></i>
+                        <div>
+                            <p class="text-slate-500">Total de Turmas</p>
+                            <p class="text-2xl font-bold text-slate-800">4</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl flex items-center space-x-4 border border-slate-200">
+                        <i class="fas fa-user-graduate text-3xl text-blue-500"></i>
+                         <div>
+                            <p class="text-slate-500">Alunos Atendidos</p>
+                            <p class="text-2xl font-bold text-slate-800">112</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">Acesso Rápido</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-teal-400 hover:shadow-md transition-all cursor-pointer">
+                    <i class="fas fa-plus-circle text-2xl text-teal-500 mb-3"></i>
+                    <h3 class="font-bold text-slate-800">Nova Turma</h3>
+                    <p class="text-sm text-slate-500">Cadastre uma nova turma.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-teal-400 hover:shadow-md transition-all cursor-pointer">
+                    <i class="fas fa-user-plus text-2xl text-blue-500 mb-3"></i>
+                    <h3 class="font-bold text-slate-800">Novo Aluno</h3>
+                    <p class="text-sm text-slate-500">Adicione um aluno a uma turma.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página: Minhas Turmas -->
+        <div id="turmas" class="page">
+            <h1 class="text-4xl font-bold text-slate-800 mb-8">Minhas Turmas</h1>
+            <div class="space-y-6">
+                <!-- Card de Turma -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Turma 6º Ano A</h2>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Ana Silva</span></li>
+                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Bruno Costa</span> <span class="text-xs font-bold bg-blue-500 text-white px-2 py-1 rounded-full">[TDAH]</span></li>
+                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Carla Dias</span></li>
+                    </ul>
+                </div>
+                <!-- Card de Turma -->
+                 <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Turma 7º Ano C</h2>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Daniel Alves</span></li>
+                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Eduarda Lima</span> <span class="text-xs font-bold bg-teal-500 text-white px-2 py-1 rounded-full">[TEA]</span></li>
+                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Felipe Souza</span> <span class="text-xs font-bold bg-amber-500 text-white px-2 py-1 rounded-full">[Dislexia]</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página: Minhas Atividades -->
+        <div id="atividades" class="page">
+            <h1 class="text-4xl font-bold text-slate-800 mb-8">Minhas Atividades</h1>
+             <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-800">História: Descobrimento do Brasil</h2>
+                <p class="text-sm text-slate-500 mb-4">Criado em: 18/07/2025</p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-slate-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-slate-600">Ver Original</button>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-500">Ver Versão Gamificada</button>
+                    <button class="bg-amber-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-amber-500">Ver Versão Acessível</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página: Painel ANJO -->
+        <div id="anjo" class="page">
+            <h1 class="text-4xl font-bold text-slate-800 mb-8">Painel de Bem-Estar (ANJO)</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card de Sinergia -->
+                <div class="bg-red-50 border border-red-200 p-6 rounded-2xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <i class="fas fa-triangle-exclamation text-red-500 text-2xl"></i>
+                        <h2 class="text-xl font-bold text-red-800">Alerta de Agitação</h2>
+                    </div>
+                    <p class="text-red-700 mb-4">O dispositivo ANJO de **Eduarda Lima** (7ºC) detectou 3 picos de movimentação incomum esta manhã. Ela pode estar se sentindo ansiosa.</p>
+                    <button class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600">Sugerir Atividade de Foco</button>
+                </div>
+                <!-- Card de Sinergia -->
+                <div class="bg-green-50 border border-green-200 p-6 rounded-2xl">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+                        <h2 class="text-xl font-bold text-green-800">Reforço Positivo</h2>
+                    </div>
+                    <p class="text-green-700 mb-4">**Bruno Costa** (6ºA) concluiu a atividade de matemática que tinha dificuldade. Uma ótima oportunidade para um incentivo!</p>
+                    <button class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">Enviar Reconhecimento via ANJO</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Lógica de aplicação de página única (SPA)
+        const pages = document.querySelectorAll('.page');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        function showPage(pageId) {
+            // Esconde todas as páginas
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Mostra a página alvo
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Atualiza o estado ativo nos itens de navegação
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                // Verifica se o onclick do item corresponde ao pageId
+                if(item.getAttribute('onclick') === `showPage('${pageId}')`) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Inicializa com a página do dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('dashboard');
+        });
+    </script>
+</body>
+</html>
