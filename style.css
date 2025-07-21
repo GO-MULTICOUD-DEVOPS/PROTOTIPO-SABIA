@@ -1,0 +1,53 @@
+/* Importação das fontes */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap');
+
+/* Estilos Globais */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f7f4;
+    overflow: hidden; /* Previne scroll durante a splash screen */
+}
+
+.font-logo { font-family: 'Cormorant Garamond', serif; }
+.font-handwritten { font-family: 'Patrick Hand', cursive; }
+
+/* Scrollbar Customizada */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #e2e8f0; }
+::-webkit-scrollbar-thumb { background: #2dd4bf; border-radius: 10px; }
+
+/* Componentes da UI */
+.nav-item.active { background-color: #0d9488; color: white; }
+.page, .modal-overlay { display: none; }
+.page.active, .modal-overlay.active { display: flex; }
+.tab { border-bottom-color: transparent; color: #64748b; }
+.tab.active { border-bottom-color: #0d9488; color: #0d9488; font-weight: 600; }
+.activity-content { display: none; }
+.activity-content.active { display: block; }
+.trilha-step { transition: all 0.3s ease; }
+.trilha-step.completed .step-circle { background-color: #f59e0b !important; border-color: #f59e0b !important; }
+.trilha-step.completed .step-circle i { color: white; }
+
+/* Animação de Fade In e Slide Up */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Estilos da Splash Screen */
+#splash-screen {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+#splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+#app-content.visible {
+    visibility: visible;
+}

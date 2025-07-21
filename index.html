@@ -6,240 +6,194 @@
     <title>Plataforma SÁBIA</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter (para UI) e Cormorant Garamond (para o logo) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* Estilos customizados */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f7f4; /* Um branco-pergaminho quente */
-        }
-        .font-logo {
-            font-family: 'Cormorant Garamond', serif;
-        }
-        /* Scrollbar customizada para melhor estética */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0; /* slate-200 */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2dd4bf; /* teal-400 */
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #14b8a6; /* teal-500 */
-        }
-        .nav-item.active {
-            background-color: #0d9488; /* teal-600 */
-            color: white;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-    </style>
+    <!-- Nosso Arquivo de Estilo CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-gray-800 flex">
 
-    <!-- Sidebar de Navegação -->
-    <aside class="w-64 bg-slate-800 p-6 flex flex-col justify-between h-screen sticky top-0">
-        <div>
-            <!-- Logo -->
-            <div class="flex items-center space-x-3 mb-10">
-                <img src="./assets/logo-sabia.png" alt="Logo SÁBIA" class="h-20 w-20 rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/40x40/14b8a6/ffffff?text=S';">
-                <span class="text-3xl font-bold text-white font-logo">SÁBIA</span>
-            </div>
+    <!-- Splash Screen (Tela de Abertura) -->
+    <div id="splash-screen" class="fixed inset-0 bg-slate-800 flex flex-col items-center justify-center z-[100]">
+        <img src="./assets/logo-sabia.png" alt="Logo SÁBIA" class="h-40 w-40 rounded-md animate-pulse" onerror="this.onerror=null;this.src='https://placehold.co/160x160/14b8a6/ffffff?text=S';">
+        <span class="text-5xl font-bold text-white font-logo mt-4">SÁBIA</span>
+        <p class="text-teal-300 mt-2">Carregando sua plataforma de ensino inclusivo...</p>
+    </div>
 
-            <!-- Menu de Navegação -->
-            <nav class="space-y-3">
-                <a href="#" onclick="showPage('dashboard')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200 active">
-                    <i class="fas fa-home w-6 text-center"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" onclick="showPage('turmas')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
-                    <i class="fas fa-users w-6 text-center"></i>
-                    <span>Minhas Turmas</span>
-                </a>
-                <a href="#" onclick="showPage('atividades')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
-                    <i class="fas fa-clipboard-list w-6 text-center"></i>
-                    <span>Minhas Atividades</span>
-                </a>
-                <a href="#" onclick="showPage('anjo')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
-                    <img src="./assets/logo-anjo.png" class="w-12 h-10 opacity-80 rounded-md" alt="Ícone ANJO" onerror="this.onerror=null;this.src='https://placehold.co/24x24/ffffff/000000?text=A';">
-                    <span>Painel ANJO</span>
-                </a>
-            </nav>
-        </div>
-
-        <!-- Perfil do Usuário -->
-        <div class="border-t border-slate-700 pt-6">
-            <div class="flex items-center space-x-4">
-                <img class="h-12 w-12 rounded-full object-cover" src="./assets/professor.png" alt="Professor" onerror="this.onerror=null;this.src='https://placehold.co/48x48/ffffff/333333?text=P';">
-                <div>
-                    <p class="font-semibold text-white">Prof. Carlos</p>
-                    <a href="#" class="text-sm text-teal-400 hover:underline">Sair</a>
+    <!-- Conteúdo Principal da Aplicação (Inicialmente Oculto) -->
+    <div id="app-content" class="flex w-full invisible">
+        <!-- Sidebar (Com suas alterações de design) -->
+        <aside class="w-64 bg-slate-800 p-6 flex flex-col justify-between min-h-screen sticky top-0">
+            <div>
+                <div class="flex flex-col items-center mb-10">
+                    <img src="./assets/logo-sabia.png" alt="Logo SÁBIA" class="h-40 w-40 rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/160x160/14b8a6/ffffff?text=S';">
+                    <span class="text-3xl font-bold text-white font-logo mt-2">SÁBIA</span>
                 </div>
+                <nav class="space-y-3">
+                    <a href="#" onclick="showPage('dashboard')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200 active">
+                        <i class="fas fa-home w-6 text-center"></i><span>Dashboard</span>
+                    </a>
+                    <a href="#" onclick="showPage('turmas')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
+                        <i class="fas fa-users w-6 text-center"></i><span>Minhas Turmas</span>
+                    </a>
+                    <a href="#" onclick="showPage('atividades')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
+                        <i class="fas fa-clipboard-list w-6 text-center"></i><span>Minhas Atividades</span>
+                    </a>
+                    <a href="#" onclick="showPage('anjo')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-teal-700 hover:text-white transition-colors duration-200">
+                        <img src="./assets/logo-anjo.png" class="w-12 h-10 opacity-80 rounded-md" alt="Ícone ANJO" onerror="this.onerror=null;this.src='https://placehold.co/48x40/ffffff/000000?text=A';">
+                        <span>Painel ANJO</span>
+                    </a>
+                </nav>
             </div>
-        </div>
-    </aside>
-
-    <!-- Conteúdo Principal -->
-    <main class="flex-1 p-8 overflow-y-auto">
-
-        <!-- Página: Dashboard -->
-        <div id="dashboard" class="page active">
-            <h1 class="text-4xl font-bold text-slate-800 mb-2">Bem-vindo, Prof. Carlos!</h1>
-            <p class="text-slate-500 mb-8">Seu centro de controle para uma educação mais inclusiva.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- Ação Principal: Criar Atividade -->
-                <div class="md:col-span-2 bg-teal-500 p-8 rounded-2xl flex flex-col justify-center items-start text-white shadow-lg">
-                    <h2 class="text-3xl font-bold mb-2">Transforme seu plano de aula.</h2>
-                    <p class="text-teal-100 mb-6 max-w-md">Cole seu conteúdo e deixe a nossa IA criar atividades personalizadas em segundos.</p>
-                    <button class="bg-white text-teal-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-transform duration-200 hover:scale-105">
-                        <i class="fas fa-magic mr-2"></i> Criar Atividade Adaptada
-                    </button>
-                </div>
-                <!-- Cartões de Estatísticas -->
-                <div class="space-y-4">
-                    <div class="bg-white p-6 rounded-2xl flex items-center space-x-4 border border-slate-200">
-                        <i class="fas fa-users text-3xl text-teal-500"></i>
-                        <div>
-                            <p class="text-slate-500">Total de Turmas</p>
-                            <p class="text-2xl font-bold text-slate-800">4</p>
-                        </div>
+            <div class="border-t border-slate-700 pt-6">
+                <div class="flex items-center space-x-4">
+                    <img class="h-12 w-12 rounded-full object-cover" src="./assets/professor.png" alt="Professor" onerror="this.onerror=null;this.src='https://placehold.co/48x48/ffffff/333333?text=P';">
+                    <div>
+                        <p class="font-semibold text-white">Prof. Carlos</p><a href="#" class="text-sm text-teal-400 hover:underline">Sair</a>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl flex items-center space-x-4 border border-slate-200">
-                        <i class="fas fa-user-graduate text-3xl text-blue-500"></i>
-                         <div>
-                            <p class="text-slate-500">Alunos Atendidos</p>
-                            <p class="text-2xl font-bold text-slate-800">112</p>
-                        </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page active flex-col">
+                <h1 class="text-4xl font-bold text-slate-800 mb-2 animate-fade-in-up">Bem-vindo, Prof. Carlos!</h1>
+                <p class="text-slate-500 mb-8 animate-fade-in-up" style="animation-delay: 100ms;">Seu centro de controle para uma educação mais inclusiva.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="md:col-span-2 bg-teal-500 p-8 rounded-2xl flex flex-col justify-center items-start text-white shadow-lg animate-fade-in-up" style="animation-delay: 200ms;">
+                        <h2 class="text-3xl font-bold mb-2">Transforme seu plano de aula.</h2>
+                        <p class="text-teal-100 mb-6 max-w-md">Cole seu conteúdo e deixe a nossa IA criar atividades personalizadas em segundos.</p>
+                        <button onclick="openModal('activityModal')" class="bg-white text-teal-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-transform duration-200 hover:scale-105"><i class="fas fa-magic mr-2"></i> Criar Atividade Adaptada</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-white p-6 rounded-2xl flex items-center space-x-4 border border-slate-200 animate-fade-in-up" style="animation-delay: 300ms;"><i class="fas fa-users text-3xl text-teal-500"></i><div><p class="text-slate-500">Total de Turmas</p><p id="turmaCount" class="text-2xl font-bold text-slate-800">2</p></div></div>
+                        <div class="bg-white p-6 rounded-2xl flex items-center space-x-4 border border-slate-200 animate-fade-in-up" style="animation-delay: 400ms;"><i class="fas fa-user-graduate text-3xl text-blue-500"></i><div><p class="text-slate-500">Alunos Atendidos</p><p id="studentCount" class="text-2xl font-bold text-slate-800">6</p></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Turmas Page -->
+            <div id="turmas" class="page flex-col">
+                <div class="flex justify-between items-center mb-8 animate-fade-in-up">
+                    <h1 class="text-4xl font-bold text-slate-800">Minhas Turmas</h1>
+                    <button onclick="openModal('turmaModal')" class="bg-teal-500 text-white font-bold py-2 px-5 rounded-lg hover:bg-teal-600 transition-colors"><i class="fas fa-plus mr-2"></i>Criar Turma</button>
+                </div>
+                <div id="turmasList" class="space-y-6">
+                    <!-- Turmas serão injetadas aqui pelo JS -->
+                </div>
+            </div>
+            
+            <!-- Atividades Page -->
+            <div id="atividades" class="page flex-col">
+                <h1 class="text-4xl font-bold text-slate-800 mb-8 animate-fade-in-up">Minhas Atividades</h1>
+                 <div class="bg-white p-6 rounded-2xl border border-slate-200 animate-fade-in-up" style="animation-delay: 100ms;">
+                    <h2 class="text-xl font-bold text-slate-800">História: Descobrimento do Brasil</h2>
+                    <p class="text-sm text-slate-500 mb-4">Criado em: 22/07/2025</p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showActivityPage()" class="bg-slate-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-slate-600">Ver Resultados</button>
                     </div>
                 </div>
             </div>
             
-            <h2 class="text-2xl font-bold text-slate-800 mb-4">Acesso Rápido</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                 <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-teal-400 hover:shadow-md transition-all cursor-pointer">
-                    <i class="fas fa-plus-circle text-2xl text-teal-500 mb-3"></i>
-                    <h3 class="font-bold text-slate-800">Nova Turma</h3>
-                    <p class="text-sm text-slate-500">Cadastre uma nova turma.</p>
-                </div>
-                 <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-teal-400 hover:shadow-md transition-all cursor-pointer">
-                    <i class="fas fa-user-plus text-2xl text-blue-500 mb-3"></i>
-                    <h3 class="font-bold text-slate-800">Novo Aluno</h3>
-                    <p class="text-sm text-slate-500">Adicione um aluno a uma turma.</p>
+            <!-- ANJO Page -->
+            <div id="anjo" class="page flex-col">
+                <h1 class="text-4xl font-bold text-slate-800 mb-8 animate-fade-in-up">Painel de Bem-Estar (ANJO)</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-red-50 border border-red-200 p-6 rounded-2xl animate-fade-in-up" style="animation-delay: 100ms;"><div class="flex items-center space-x-3 mb-3"><i class="fas fa-triangle-exclamation text-red-500 text-2xl"></i><h2 class="text-xl font-bold text-red-800">Alerta de Agitação</h2></div><p class="text-red-700 mb-4">O dispositivo ANJO de <strong>Eduarda Lima</strong> (7ºC) detectou 3 picos de movimentação incomum esta manhã. Ela pode estar se sentindo ansiosa.</p><button class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600">Sugerir Atividade de Foco</button></div>
+                    <div class="bg-green-50 border border-green-200 p-6 rounded-2xl animate-fade-in-up" style="animation-delay: 200ms;"><div class="flex items-center space-x-3 mb-3"><i class="fas fa-check-circle text-green-600 text-2xl"></i><h2 class="text-xl font-bold text-green-800">Reforço Positivo</h2></div><p class="text-green-700 mb-4"><strong>Bruno Costa</strong> (6ºA) concluiu a atividade de matemática que tinha dificuldade. Uma ótima oportunidade para um incentivo!</p><button class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">Enviar Reconhecimento via ANJO</button></div>
                 </div>
             </div>
-        </div>
-
-        <!-- Página: Minhas Turmas -->
-        <div id="turmas" class="page">
-            <h1 class="text-4xl font-bold text-slate-800 mb-8">Minhas Turmas</h1>
-            <div class="space-y-6">
-                <!-- Card de Turma -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Turma 6º Ano A</h2>
-                    <ul class="space-y-3">
-                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Ana Silva</span></li>
-                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Bruno Costa</span> <span class="text-xs font-bold bg-blue-500 text-white px-2 py-1 rounded-full">[TDAH]</span></li>
-                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Carla Dias</span></li>
-                    </ul>
-                </div>
-                <!-- Card de Turma -->
-                 <div class="bg-white p-6 rounded-2xl border border-slate-200">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Turma 7º Ano C</h2>
-                    <ul class="space-y-3">
-                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Daniel Alves</span></li>
-                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Eduarda Lima</span> <span class="text-xs font-bold bg-teal-500 text-white px-2 py-1 rounded-full">[TEA]</span></li>
-                        <li class="flex justify-between items-center p-3 bg-slate-100 rounded-lg"><span>Felipe Souza</span> <span class="text-xs font-bold bg-amber-500 text-white px-2 py-1 rounded-full">[Dislexia]</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Página: Minhas Atividades -->
-        <div id="atividades" class="page">
-            <h1 class="text-4xl font-bold text-slate-800 mb-8">Minhas Atividades</h1>
-             <div class="bg-white p-6 rounded-2xl border border-slate-200">
-                <h2 class="text-xl font-bold text-slate-800">História: Descobrimento do Brasil</h2>
-                <p class="text-sm text-slate-500 mb-4">Criado em: 18/07/2025</p>
-                <div class="flex flex-wrap gap-4">
-                    <button class="bg-slate-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-slate-600">Ver Original</button>
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-500">Ver Versão Gamificada</button>
-                    <button class="bg-amber-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-amber-500">Ver Versão Acessível</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Página: Painel ANJO -->
-        <div id="anjo" class="page">
-            <h1 class="text-4xl font-bold text-slate-800 mb-8">Painel de Bem-Estar (ANJO)</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card de Sinergia -->
-                <div class="bg-red-50 border border-red-200 p-6 rounded-2xl">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <i class="fas fa-triangle-exclamation text-red-500 text-2xl"></i>
-                        <h2 class="text-xl font-bold text-red-800">Alerta de Agitação</h2>
-                    </div>
-                    <p class="text-red-700 mb-4">O dispositivo ANJO de **Eduarda Lima** (7ºC) detectou 3 picos de movimentação incomum esta manhã. Ela pode estar se sentindo ansiosa.</p>
-                    <button class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600">Sugerir Atividade de Foco</button>
-                </div>
-                <!-- Card de Sinergia -->
-                <div class="bg-green-50 border border-green-200 p-6 rounded-2xl">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <i class="fas fa-check-circle text-green-600 text-2xl"></i>
-                        <h2 class="text-xl font-bold text-green-800">Reforço Positivo</h2>
-                    </div>
-                    <p class="text-green-700 mb-4">**Bruno Costa** (6ºA) concluiu a atividade de matemática que tinha dificuldade. Uma ótima oportunidade para um incentivo!</p>
-                    <button class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">Enviar Reconhecimento via ANJO</button>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        // Lógica de aplicação de página única (SPA)
-        const pages = document.querySelectorAll('.page');
-        const navItems = document.querySelectorAll('.nav-item');
-
-        function showPage(pageId) {
-            // Esconde todas as páginas
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-
-            // Mostra a página alvo
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
             
-            // Atualiza o estado ativo nos itens de navegação
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                // Verifica se o onclick do item corresponde ao pageId
-                if(item.getAttribute('onclick') === `showPage('${pageId}')`) {
-                    item.classList.add('active');
-                }
-            });
-        }
+            <!-- Activity Result Page -->
+            <div id="activityResult" class="page flex-col">
+                <button onclick="showPage('atividades')" class="self-start mb-6 text-teal-600 font-semibold hover:text-teal-800"><i class="fas fa-arrow-left mr-2"></i>Voltar para Atividades</button>
+                <h1 class="text-4xl font-bold text-slate-800 mb-2">Resultados da Atividade</h1>
+                <p class="text-slate-500 mb-8">História: Descobrimento do Brasil</p>
+                <div class="w-full bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="border-b border-slate-200 mb-4">
+                        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                            <a href="#" onclick="showTab('original', this)" class="tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Original</a>
+                            <a href="#" onclick="showTab('gamificada', this)" class="tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Trilha do Conhecimento (TDAH)</a>
+                            <a href="#" onclick="showTab('acessivel', this)" class="tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Texto Focado (Dislexia)</a>
+                        </nav>
+                    </div>
+                    <!-- Conteúdo Original -->
+                    <div id="original" class="activity-content prose max-w-none">
+                        <h3>Texto Original</h3>
+                        <p>Em 22 de abril de 1500, a frota comandada por Pedro Álvares Cabral chegou ao litoral sul da Bahia, na região onde hoje se encontra a cidade de Porto Seguro. Este evento é considerado o descobrimento oficial do Brasil. A expedição portuguesa, que originalmente se dirigia para as Índias, desviou-se de sua rota e avistou um monte, que foi batizado de Monte Pascoal, por ter sido avistado na época da Páscoa. O primeiro contato com os povos indígenas foi pacífico e gerou grande estranhamento de ambas as partes, devido às enormes diferenças culturais, de vestimenta e de costumes.</p>
+                    </div>
+                    
+                    <!-- Conteúdo Gamificado -->
+                    <div id="gamificada" class="activity-content">
+                        <div class="bg-amber-50 p-6 rounded-lg border-2 border-dashed border-amber-200">
+                            <h3 class="text-3xl font-bold text-amber-800 mb-2 text-center font-handwritten">A Trilha do Conhecimento!</h3>
+                            <p class="text-center text-amber-700 mb-8">Clique em uma etapa para começar sua aventura e conquistar seus selos!</p>
+                            
+                            <div class="relative w-full h-48 flex items-center">
+                                <div class="absolute w-full h-1.5 bg-amber-300 rounded-full"></div>
+                                <div class="absolute w-full flex justify-between">
+                                    <div id="step-1" class="trilha-step cursor-pointer group" onclick="openDiscoveryCard('card-1')"><div class="step-circle w-12 h-12 bg-white border-4 border-amber-400 rounded-full flex items-center justify-center transform group-hover:scale-125"><i class="fas fa-ship text-2xl text-amber-500"></i></div></div>
+                                    <div id="step-2" class="trilha-step cursor-pointer group" onclick="openDiscoveryCard('card-2')"><div class="step-circle w-12 h-12 bg-white border-4 border-amber-400 rounded-full flex items-center justify-center transform group-hover:scale-125"><i class="fas fa-mountain text-2xl text-amber-500"></i></div></div>
+                                    <div id="step-3" class="trilha-step cursor-pointer group" onclick="openDiscoveryCard('card-3')"><div class="step-circle w-12 h-12 bg-white border-4 border-amber-400 rounded-full flex items-center justify-center transform group-hover:scale-125"><i class="fas fa-users text-2xl text-amber-500"></i></div></div>
+                                    <div id="step-4" class="trilha-step cursor-pointer group"><div class="step-circle w-12 h-12 bg-white border-4 border-amber-400 rounded-full flex items-center justify-center transform group-hover:scale-125"><i class="fas fa-trophy text-2xl text-amber-500"></i></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        // Inicializa com a página do dashboard
-        document.addEventListener('DOMContentLoaded', () => {
-            showPage('dashboard');
-        });
-    </script>
+                    <!-- Conteúdo Acessível -->
+                    <div id="acessivel" class="activity-content">
+                         <h3 class="text-2xl font-bold text-slate-800 mb-4">Texto Focado para Alta Legibilidade</h3>
+                         <div class="space-y-6 text-lg leading-relaxed">
+                            <p><i class="fas fa-calendar-day text-teal-500 mr-3 w-6 text-center"></i>No dia <strong class="bg-yellow-200 px-1 rounded">22 de abril de 1500</strong>, os navios de Portugal chegaram na Bahia.</p>
+                            <p><i class="fas fa-anchor text-teal-500 mr-3 w-6 text-center"></i>O comandante era <strong class="bg-yellow-200 px-1 rounded">Pedro Álvares Cabral</strong>. Esse dia é o <strong class="text-red-600 uppercase font-bold">descobrimento do Brasil</strong>.</p>
+                            <p><i class="fas fa-binoculars text-teal-500 mr-3 w-6 text-center"></i>Eles viram um monte e o chamaram de <strong class="bg-yellow-200 px-1 rounded">Monte Pascoal</strong>, porque era a época da Páscoa.</p>
+                            <p><i class="fas fa-handshake text-teal-500 mr-3 w-6 text-center"></i>O encontro com os <strong class="bg-yellow-200 px-1 rounded">povos indígenas</strong> foi calmo. Os dois grupos acharam tudo muito <strong class="text-red-600 uppercase font-bold">diferente</strong>.</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="turmaModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md m-4">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">Criar Nova Turma</h2>
+            <form id="turmaForm"><div class="mb-4"><label for="turmaNome" class="block text-sm font-medium text-slate-700 mb-1">Nome da Turma</label><input type="text" id="turmaNome" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Ex: 8º Ano B" required></div><div class="flex justify-end space-x-4"><button type="button" onclick="closeModal('turmaModal')" class="px-6 py-2 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300">Cancelar</button><button type="submit" class="px-6 py-2 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600">Criar</button></div></form>
+        </div>
+    </div>
+    <div id="addStudentModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md m-4">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">Adicionar Aluno</h2>
+            <form id="studentForm"><input type="hidden" id="turmaIdInput"><div class="mb-4"><label for="studentName" class="block text-sm font-medium text-slate-700 mb-1">Nome do Aluno</label><input type="text" id="studentName" class="w-full px-3 py-2 border border-slate-300 rounded-lg" required></div><div class="mb-6"><label for="studentTag" class="block text-sm font-medium text-slate-700 mb-1">Necessidade Específica (Opcional)</label><select id="studentTag" class="w-full px-3 py-2 border border-slate-300 rounded-lg"><option value="">Nenhuma</option><option value="TDAH">TDAH</option><option value="TEA">TEA</option><option value="Dislexia">Dislexia</option></select></div><div class="flex justify-end space-x-4"><button type="button" onclick="closeModal('addStudentModal')" class="px-6 py-2 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300">Cancelar</button><button type="submit" class="px-6 py-2 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600">Adicionar</button></div></form>
+        </div>
+    </div>
+    <div id="activityModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+         <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-2xl m-4">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">Criar Atividade Adaptada</h2>
+            <form id="activityForm"><div class="mb-4"><label for="activityTitle" class="block text-sm font-medium text-slate-700 mb-1">Título da Atividade</label><input type="text" id="activityTitle" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" value="História: Descobrimento do Brasil" required></div><div class="mb-6"><label for="activityContent" class="block text-sm font-medium text-slate-700 mb-1">Conteúdo Original</label><textarea id="activityContent" rows="8" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" required>Em 22 de abril de 1500, a frota comandada por Pedro Álvares Cabral chegou ao litoral sul da Bahia, na região onde hoje se encontra a cidade de Porto Seguro. Este evento é considerado o descobrimento oficial do Brasil. A expedição portuguesa, que originalmente se dirigia para as Índias, desviou-se de sua rota e avistou um monte, que foi batizado de Monte Pascoal, por ter sido avistado na época da Páscoa. O primeiro contato com os povos indígenas foi pacífico e gerou grande estranhamento de ambas as partes, devido às enormes diferenças culturais, de vestimenta e de costumes.</textarea></div><div class="flex justify-end space-x-4"><button type="button" onclick="closeModal('activityModal')" class="px-6 py-2 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300">Cancelar</button><button type="submit" class="px-6 py-2 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600"><i class="fas fa-magic mr-2"></i>Gerar Versões</button></div></form>
+        </div>
+    </div>
+    
+    <!-- Modal para os Cards de Descoberta -->
+    <div id="discoveryCardModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 items-center justify-center z-50">
+        <div id="card-1" class="discovery-card bg-white p-6 rounded-2xl shadow-2xl w-full max-w-sm m-4 hidden"><div class="text-center"><i class="fas fa-ship text-6xl text-blue-500 mb-4"></i><h3 class="text-2xl font-bold text-slate-800 font-handwritten">A Grande Frota</h3><p class="text-sm text-slate-500 mt-2 bg-blue-50 p-2 rounded-lg"><strong>Você sabia?</strong> A frota de Cabral tinha 13 navios e mais de 1.200 homens!</p></div><div class="mt-6"><p class="font-semibold text-center">Missão: Arraste o nome do comandante para o navio!</p><div class="mt-4 text-center"><span class="bg-blue-200 text-blue-800 p-2 rounded-lg font-bold">Pedro Álvares Cabral</span></div><div class="text-5xl text-center my-4">👇</div><div class="w-full h-24 bg-blue-100 rounded-lg flex items-center justify-center border-2 border-dashed border-blue-300"><i class="fas fa-ship text-4xl text-blue-400"></i></div></div><button onclick="completeStep('step-1')" class="w-full mt-6 bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600">Completar Missão!</button></div>
+        <div id="card-2" class="discovery-card bg-white p-6 rounded-2xl shadow-2xl w-full max-w-sm m-4 hidden"><div class="text-center"><i class="fas fa-mountain text-6xl text-green-500 mb-4"></i><h3 class="text-2xl font-bold text-slate-800 font-handwritten">O Primeiro Sinal de Terra</h3><p class="text-sm text-slate-500 mt-2 bg-green-50 p-2 rounded-lg"><strong>Você sabia?</strong> O monte foi chamado de "Pascoal" porque foi avistado na semana da Páscoa.</p></div><div class="mt-6"><p class="font-semibold text-center">Missão: Qual foi o nome dado ao monte?</p><div class="mt-4 grid grid-cols-2 gap-2"><button class="p-2 bg-slate-100 rounded hover:bg-green-100">Monte Roraima</button><button class="p-2 bg-slate-100 rounded hover:bg-green-100">Monte Pascoal</button></div></div><button onclick="completeStep('step-2')" class="w-full mt-6 bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600">Completar Missão!</button></div>
+        <div id="card-3" class="discovery-card bg-white p-6 rounded-2xl shadow-2xl w-full max-w-sm m-4 hidden"><div class="text-center"><i class="fas fa-users text-6xl text-yellow-500 mb-4"></i><h3 class="text-2xl font-bold text-slate-800 font-handwritten">O Primeiro Contato</h3><p class="text-sm text-slate-500 mt-2 bg-yellow-50 p-2 rounded-lg"><strong>Você sabia?</strong> O primeiro encontro foi pacífico e cheio de curiosidade dos dois lados.</p></div><div class="mt-6"><p class="font-semibold text-center">Missão: Como foi o primeiro contato?</p><div class="mt-4 grid grid-cols-2 gap-2"><button class="p-2 bg-slate-100 rounded hover:bg-yellow-100">Pacífico</button><button class="p-2 bg-slate-100 rounded hover:bg-yellow-100">Conflituoso</button></div></div><button onclick="completeStep('step-3')" class="w-full mt-6 bg-yellow-500 text-white font-bold py-3 rounded-lg hover:bg-yellow-600">Completar Missão!</button></div>
+    </div>
+    
+    <div id="successToast" class="fixed bottom-10 right-10 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fas fa-check-circle mr-2"></i><span id="toastMessage"></span>
+    </div>
+
+    <!-- PONTO CRÍTICO DA CORREÇÃO: Chamando o arquivo de script no final do body -->
+    <script src="script.js"></script>
 </body>
 </html>
